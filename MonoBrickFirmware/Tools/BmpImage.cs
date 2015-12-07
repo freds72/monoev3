@@ -69,9 +69,11 @@ namespace MonoBrickFirmware.Tools
 		
 		public void WriteToFile (string path)
 		{
-			FileStream fs = new FileStream(path, FileMode.Create);
-			stream.WriteTo(fs);
-			fs.Close();
+            stream.Seek(0L, SeekOrigin.Begin);
+            using (FileStream fs = new FileStream(path, FileMode.Create))
+            {
+                stream.WriteTo(fs);
+            }
 		}
 		
 		
