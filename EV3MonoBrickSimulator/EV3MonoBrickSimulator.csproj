@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -176,11 +176,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Images\" />
-    <Folder Include="Stub\" />
-    <Folder Include="Settings\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="Images\EV3-multibrick_07_P.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -220,10 +216,6 @@
     <ProjectReference Include="..\MonoBrickFirmware\MonoBrickFirmware.csproj">
       <Project>{67261E03-D263-4C42-A5AD-2A4820231B28}</Project>
       <Name>MonoBrickFirmware</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\StartupApp\StartupApp.csproj">
-      <Project>{75E781D0-7313-445B-8430-DECB0AD3C96E}</Project>
-      <Name>StartupApp</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>
