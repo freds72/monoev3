@@ -1,2 +1,14 @@
 C# library for Lego Mindstorms EV3
-...
+
+Fork from this fantastic library: http://www.monobrick.dk/software/ev3firmware/
+
+Goal is to add game-related features to MonoBrik:
+- LCD wrap mode (a la Asteroids)
+- Optimized pixel operations (work in progress)
+
+Misc:
+- fixed LCD pixel boundaries bug in original library
+
+
+
+
