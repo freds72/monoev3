@@ -24,22 +24,32 @@ namespace MonoBrickFirmware.Display
 		protected float redGradientStep;
 		protected float greenGradientStep;  
 		protected float blueGradientStep; 
-
+        
 		protected bool IsPixelInLcd(Point pixel)
 		{
-			return (pixel.X >= 0) && (pixel.Y >= 0) && (pixel.X <= Lcd.Width) && (pixel.Y <= Height);
+            return (pixel.X >= 0) && (pixel.Y >= 0) && (pixel.X < width) && (pixel.Y < height);
 		}
 
 		protected bool IsPixelInLcd(int x, int y)
 		{
-			return	(x >= 0) && (y >= 0) && (x <= Lcd.Width) && (y <= Height);
+            return (x >= 0) && (y >= 0) && (x < width) && (y < height);
 		}
 
 		public int Width { get { return width; } }
 		public int Height {get { return height; } }
+        public bool IsWrapMode { get; set; }
 
 		public virtual void SetPixel(int x, int y, bool color)
 		{
+            if (IsWrapMode)
+            {
+                x %= EV3Lcd.width;
+                if ( x < 0)
+                    x += EV3Lcd.width;
+                y %= EV3Lcd.height;
+                if ( y < 0)
+                    y += EV3Lcd.height;
+            }
 			if (!IsPixelInLcd (x, y))
 				return;
 
@@ -78,7 +88,7 @@ namespace MonoBrickFirmware.Display
 		public void Update()
 		{
 			Update (0);
-		}
+        }
 
 		public virtual void Update(int yOffset)
 		{
@@ -164,19 +174,16 @@ namespace MonoBrickFirmware.Display
 
 		public void DrawVLine(Point startPoint, int height, bool color)
 		{
-			for (var y = 0; y <= height; y++) {
-				SetPixel (startPoint.X, startPoint.Y + y, color);			
-			}
-
+            int endPointY = Math.Min(startPoint.Y + height, EV3Lcd.height); // no need to draw behond screen
+            for (var y = startPoint.Y; y < endPointY; ++y)
+				SetPixel (startPoint.X, y, color);			
 		}
 
 		public void DrawHLine(Point startPoint, int length, bool color)
 		{
-			for (int i = 0; i < length; i++) 
-			{
-				SetPixel (startPoint.X + i, startPoint.Y, color);
-			}
-
+            int endPointX = Math.Min(startPoint.X + length, EV3Lcd.width); // no need to draw behond screen
+            for (int x = startPoint.X; x < endPointX; ++x) 
+				SetPixel (x, startPoint.Y, color);                
 		}
 
 		public void DrawBitmap(Bitmap bm, Point p)

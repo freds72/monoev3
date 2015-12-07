@@ -30,6 +30,7 @@ namespace MonoBrickFirmware.Display
 		void DrawEllipse (Point center, ushort radiusA, ushort radiusB, bool color, bool fill);
 		void DrawLine (Point start, Point end, bool color);
 		void DrawRectangle (Rectangle r, bool color, bool fill);
+        bool IsWrapMode { get; set; }
 	}
 }
 

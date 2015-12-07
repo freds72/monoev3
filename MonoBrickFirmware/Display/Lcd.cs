@@ -140,6 +140,12 @@ namespace MonoBrickFirmware.Display
     {
       Instance.DrawRectangle(r,color,fill);
     }
+
+    public static bool IsWrapMode
+    {
+        get { return Instance.IsWrapMode; }
+        set { Instance.IsWrapMode = value; }
+    }
   }
 }
 

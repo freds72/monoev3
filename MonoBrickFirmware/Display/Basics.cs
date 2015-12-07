@@ -12,6 +12,9 @@ namespace MonoBrickFirmware.Display
 			this.X = x;
 			this.Y = y;
 		}
+
+        public static readonly Point Zero = new Point(0, 0);
+
 		static public Point operator+(Point lhs, Point rhs)
 		{
 			return new Point(lhs.X + rhs.X, lhs.Y + rhs.Y);

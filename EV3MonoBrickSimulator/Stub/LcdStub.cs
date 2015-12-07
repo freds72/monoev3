@@ -36,8 +36,17 @@ namespace EV3MonoBrickSimulator.Stub
 
 		public override void SetPixel (int x, int y, bool color)
 		{
-			base.SetPixel (x, y, color);
-			if (color)
+            base.SetPixel(x, y, color);
+            if (IsWrapMode)
+            {
+                x %= 178;
+                if (x < 0)
+                    x += 178;
+                y %= 128;
+                if (y < 0)
+                    y += 128;
+            }
+            if (color)
 			{
 				display.SetPixel (x, y);
 			} 
@@ -164,14 +173,22 @@ namespace EV3MonoBrickSimulator.Stub
 				lcdBuffer = new Pixbuf (System.IO.Path.Combine("Images","background.bmp"));
 			}
 
+            bool IsPixelInLcd(int x, int y)
+            {
+                return (x >= 0) && (y >= 0) && (x < Width) && (y < Height);
+            }
+
 			public bool IsPixelSet(int x, int y)
 			{
+                if (!IsPixelInLcd(x, y)) return false;
 				int index = GetIndex(x, y);
 				return (Marshal.ReadInt32( IntPtr.Add (lcdBuffer.Pixels, index)) & 0x00ffffff) == 0x000000;
 			}
 
 			public void SetPixel(int x, int y)
 			{
+                if (!IsPixelInLcd(x, y)) return;
+
 				int index = GetIndex(x, y);
 				Int32 oldValue = Marshal.ReadInt32( IntPtr.Add (lcdBuffer.Pixels, index));
 				Int32 newValue = (int)(oldValue & 0xff000000);
@@ -180,6 +197,8 @@ namespace EV3MonoBrickSimulator.Stub
 
 			public void ClearPixel(int x, int y)
 			{
+                if (!IsPixelInLcd(x, y)) return;
+
 				int index = GetIndex(x, y);
 				int backGroundValue = Marshal.ReadInt32( IntPtr.Add (backGroundPixBuffer.Pixels, index));
 				int oldValue = Marshal.ReadInt32( IntPtr.Add (lcdBuffer.Pixels, index));
