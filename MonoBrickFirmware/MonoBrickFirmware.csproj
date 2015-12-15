@@ -34,6 +34,8 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup />
   <ItemGroup>
+    <Compile Include="Movement\StepMotorCollection.cs" />
+    <Compile Include="Movement\StepMotor.cs" />
     <Compile Include="Native\Libc.cs" />
     <Compile Include="Tools\QueueThread.cs" />
     <Compile Include="Display\Console.cs" />
@@ -172,11 +174,8 @@
       <LogicalName>font.profont_7</LogicalName>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="FileSystem\" />
-    <Folder Include="Settings\" />
-    <Folder Include="FirmwareUpdate\" />
-    <Folder Include="Device\" />
-    <Folder Include="Display\Dialogs\UserInput\" />
-  </ItemGroup>
+  <ItemGroup />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /Y $(TargetDir)$(TargetName).* D:\MonoBrick\</PostBuildEvent>
+  </PropertyGroup>
 </Project>

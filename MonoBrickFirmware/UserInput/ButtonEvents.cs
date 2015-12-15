@@ -16,6 +16,7 @@ namespace MonoBrickFirmware.UserInput
 		{
 			this.pollTime = pollInterval;
 			pollThread = new Thread(ButtonPollThread);
+            pollThread.IsBackground = true;
 			pollThread.Start ();
 		}
 
@@ -39,8 +40,7 @@ namespace MonoBrickFirmware.UserInput
 		public event Action EscapeReleased = delegate {};
 
 		void ButtonPollThread ()
-		{	
-			Thread.CurrentThread.IsBackground = true;
+		{				
 			Buttons.ButtonStates lastState = Buttons.Instance.GetStates (); 
 			while (!stopPolling.WaitOne (pollTime)) {
 				Buttons.ButtonStates bs = Buttons.Instance.GetStates ();

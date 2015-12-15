@@ -84,7 +84,7 @@ namespace MonoBrickFirmware.Display
 			return new BitStreamer(data, dataOffset);
 		}
 		
-		static public Bitmap FromResouce(System.Reflection.Assembly asm, string resourceName)
+		static public Bitmap FromResource(System.Reflection.Assembly asm, string resourceName)
 		{
 			System.IO.Stream s = asm.GetManifestResourceStream(resourceName);
 			byte[] bytedata = new byte[s.Length];
@@ -93,8 +93,7 @@ namespace MonoBrickFirmware.Display
 			for (int i = 0; i != s.Length/4; ++i)
 				data[i] = BitConverter.ToUInt32(bytedata, i*4);
 			return new Bitmap(data);
-		}			
-			
+		}						
 	}
 }
 

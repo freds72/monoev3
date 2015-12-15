@@ -40,7 +40,7 @@ namespace StartupApp
 
 			container = new FirmwareMenuContainer (menu);
 
-			Bitmap monoLogo = Bitmap.FromResouce(Assembly.GetExecutingAssembly(), "monologo.bitmap");
+			Bitmap monoLogo = Bitmap.FromResource(Assembly.GetExecutingAssembly(), "monologo.bitmap");
 			Lcd.DrawBitmap (monoLogo, new Point ((int)(Lcd.Width - monoLogo.Width) / 2, 5));					
 			Rectangle textRect = new Rectangle (new Point (0, Lcd.Height - (int)Font.SmallFont.maxHeight - 2), new Point (Lcd.Width, Lcd.Height - 2));
 
